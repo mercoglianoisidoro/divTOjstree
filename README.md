@@ -3,7 +3,27 @@ javascript/requirejs module converting HTML elements to jstree elements
 
 ## Usage
 
-``` php
+``` html
+This module let you to convert an HTML element to an Jstree element.
+HTML element example:
+
+<div class="jstree option-TESTNAME"></div>
+```
+TESTNAME must mach an object configuration:
+
+``` javascript
+define(function () {
+    var configurations = {};
+    configurations["TESTNAME"] = {
+        "onClickCallback": function (nodeElement) {
+             //calback fot the click events
+        },
+        "serverBasePath": "./stubServer.json" 
+    };
+    return configurations;
+});
+```
+
 
 ## Change log
 
