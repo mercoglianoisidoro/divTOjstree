@@ -1,6 +1,6 @@
 {
     "name": "divTOjstree",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "authors": [
         "Mercogliano Isidoro <mercogliano.isidoro@gmail.com>"
     ],
@@ -13,7 +13,7 @@
     "homepage": "www.mercoglianoisidoro.com",
     "repository": {
         "type": "git",
-        "url": "git://github.com/username/project.git"
+        "url": "git://github.com/mercoglianoisidoro/divTOjstree.git"
     },
     "ignore": [
         "**/.*",
