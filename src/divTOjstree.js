@@ -10,7 +10,6 @@
      *  example configuration 
      *  var configurations = {};
      *  configurations["nome2"] = {
-     *                              "name": "nome2",
      *                              "onClickCallback": function (nodeElement) {
      *                                   console.log("clicked elmenet", nodeElement);
      *                              },
@@ -43,6 +42,7 @@
                     var foundClassName = foundClassesNames[0]; //all class starting by "option-"
                     var foundAppName = foundClassName.split('-')[1];
                     if (configurations[foundAppName] != undefined) {
+                        configurations[foundAppName].name = foundAppName; //we need to have the name inside the object
                        jsTrees[foundAppName] = configurations[foundAppName];
                     } else {
                      console.error(foundAppName + 'not found');
@@ -94,7 +94,7 @@
                 foundElement = true;
             }
             return foundElement;
-            
+
         };
 
             return createJSTrees;//end of the module
