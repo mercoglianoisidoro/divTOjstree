@@ -38,7 +38,7 @@ Webpage using the module:
  <div class="jstree option-test1"></div>
 ```
 
-FILES:
+where the files are:
 
 main.js (main javascript file)
 ``` javascript
@@ -56,6 +56,7 @@ requirejs(['confs','divTOjstree','jstree', 'jquery'], function (configurations,d
    divTOjstree(configurations); //use library
 });
 ```
+
 
 JstreesConfigurations.js (configurations)
 ``` javascript
