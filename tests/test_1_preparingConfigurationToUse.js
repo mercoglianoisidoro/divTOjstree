@@ -11,7 +11,6 @@ require.config({baseUrl: "./",
 requirejs(['confs'], function (configurations) {
     QUnit.test("test configuration: test_preparingConfigurationToUse ", function (assert) {
         assert.equal('object', typeof (configurations.test1), 'configurations.test1 is oject');
-        assert.equal("test1", configurations.test1.name, "configuration name is ok");
         assert.strictEqual("stringTotest", configurations.test1.onClickCallback("stringTotest"), "onClickCallback ok");
     });
 });

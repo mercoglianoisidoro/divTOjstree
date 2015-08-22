@@ -1,5 +1,10 @@
     define(function () {
     /**
+     * the goal of the module is to convert all element with class .jstree and having 
+     * anothe .option-NAME class, (ex <div class="jstree option-test1"></div>)
+     * to an object jstree
+     * 
+     * 
      * the module, a function, act like that:
      * - receive as input a configuration object (array of configurations)
      * - for each configuration search in the web page the HTML element that 
@@ -10,11 +15,11 @@
      *  example configuration 
      *  var configurations = {};
      *  configurations["nome2"] = {
-     *                              "onClickCallback": function (nodeElement) {
-     *                                   console.log("clicked elmenet", nodeElement);
-     *                              },
-     *                              "serverBasePath": "./explorer.php"
-     *                              };
+     *                         "onClickCallback": function (nodeElement) {
+     *                              console.log("clicked elmenet", nodeElement);
+     *                         },
+     *                         "serverBasePath": "./explorer.php"
+     *                        };
      */
 
 
@@ -22,12 +27,12 @@
             /**
              * create an jstree on the base of the passed configurations 
              */
-             var createJSTrees = function (configurations) {
+            var createJSTrees = function (configurations) {
             "use strict";
             var jsTrees = []; //array of objects
 
-            //search for all elemnt with class jstree, to find then the 
-            // class option-NAME, whare NAME must correspond to a configuration element
+            //search for all the HTML elements with class .jstree, to filter then the 
+            // on class option-NAME, whare NAME must correspond to a configuration element
             //every element 
             $('.jstree').each(function (index, element) {
 
@@ -43,9 +48,9 @@
                     var foundAppName = foundClassName.split('-')[1];
                     if (configurations[foundAppName] != undefined) {
                         configurations[foundAppName].name = foundAppName; //we need to have the name inside the object
-                       jsTrees[foundAppName] = configurations[foundAppName];
+                        jsTrees[foundAppName] = configurations[foundAppName];
                     } else {
-                     console.error(foundAppName + 'not found');
+                        console.error(foundAppName + 'not found');
                     }
 
             });
@@ -57,33 +62,33 @@
             */
             var initialize = function (appObject) {
 
-            $('.jstree').filter('.option-' + appObject.name)
-            /*supporto for the multi selection (not yet supported by this module)
-            .on('changed.jstree', function (e, data) {
-            var i, j= [];
-            selectedNodes = [];
-            for (i = 0, j = data.selected.length; i < j; i++) {
-            selectedNodes.push(data.instance.get_node(data.selected[i]));
+                    $('.jstree').filter('.option-' + appObject.name)
+                    /*supporto for the multi selection (not yet supported by this module)
+                    .on('changed.jstree', function (e, data) {
+                    var i, j= [];
+                    selectedNodes = [];
+                    for (i = 0, j = data.selected.length; i < j; i++) {
+                    selectedNodes.push(data.instance.get_node(data.selected[i]));
+                    }
+                    })
+                    */
+                    .on('select_node.jstree', function (e, data) {
+                      if (typeof appObject.onClickCallback === "function") {
+                          appObject.onClickCallback(data.node);
+                      }
+                    })
+                    .jstree({
+                        'core': {
+                            'data': {
+                                    'url': function (node) {
+                                        return node.id === '#' ?
+                                        appObject.serverBasePath : appObject.serverBasePath + '?path=' + node.id;
+                                        },
+                                    "dataType": "json" // needed only if you do not supply JSON headers
+                                    }
+                        }
+                    });     
             }
-            })
-            */
-            .on('select_node.jstree', function (e, data) {
-              if (typeof appObject.onClickCallback === "function") {
-                  appObject.onClickCallback(data.node);
-              }
-            })
-            .jstree({
-                'core': {
-                    'data': {
-                            'url': function (node) {
-                                return node.id === '#' ?
-                                appObject.serverBasePath : appObject.serverBasePath + '?path=' + node.id;
-                                },
-                            "dataType": "json" // needed only if you do not supply JSON headers
-                            }
-                }
-            });     
-}
 
             //jsTrees array of all the jstree found
 
@@ -94,7 +99,6 @@
                 foundElement = true;
             }
             return foundElement;
-
         };
 
             return createJSTrees;//end of the module

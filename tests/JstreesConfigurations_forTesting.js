@@ -5,7 +5,6 @@ define(function () {
     var configurations = {};
 
     configurations["test1"] = {
-        "name": "test1",
         "onClickCallback": function (nodeElement) {
             return nodeElement;
         },
