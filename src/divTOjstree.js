@@ -42,7 +42,7 @@
                     var classElement = element.className; //css class of the element
                     //it should be in the form option-[name]
                     //so now we can extract [name]
-                    var myRe = new RegExp("option-[a-z0-9]*");
+                    var myRe = new RegExp("option-[a-z0-9_]*");
                     var foundClassesNames = classElement.match(myRe);
                     var foundClassName = foundClassesNames[0]; //all class starting by "option-"
                     var foundAppName = foundClassName.split('-')[1];
